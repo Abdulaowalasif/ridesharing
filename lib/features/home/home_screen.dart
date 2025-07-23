@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:ride/features/care/care_screen.dart';
 import 'package:ride/features/widgets/custom_appbar.dart';
 import 'package:ride/features/widgets/custom_title.dart';
 import 'package:ride/features/widgets/item_cards.dart';
 import 'package:ride/features/widgets/service_card.dart';
 import 'package:ride/features/widgets/users_tile.dart';
 
+import '../widgets/service_widgets.dart';
 import '../widgets/travel_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -123,6 +125,17 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppbar(title: "Home"),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CareScreen()),
+          );
+        },
+        shape: StadiumBorder(),
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.arrow_forward_ios),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -179,25 +192,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            CustomTitle(title: 'Buy Service Packages', onPressed: () {}),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
-              height: 250,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: 4,
-                itemBuilder: (BuildContext context, int index) => ServiceCard(
-                  imageUrl: services[index]['imageUrl'],
-                  title: services[index]['title'],
-                  price: services[index]['price'],
-                  originalPrice: services[index]['originalPrice'],
-                  discount: services[index]['discount'],
-                ),
-              ),
-            ),
+            ServiceWidgets(services: services),
             const SizedBox(height: 20),
           ],
         ),
